@@ -64,7 +64,8 @@ public class ProgressBar : MonoBehaviour {
 	}
 	
 	void Update() {
-		if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)){
+		if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)|| Input.GetAxis("Vertical")> 0 
+		   || Input.GetAxis("Vertical")< 0 ){
 			slider.value = slider.value - 0.002f ;
 		}
 		else if(refuel){
