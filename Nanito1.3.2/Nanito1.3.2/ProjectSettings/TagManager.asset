@@ -33,6 +33,9 @@ TagManager:
   - Enemy
   - box
   - teleport
+  - teleport 1
+  - finish
+  - teleport 2
   layers:
   - Default
   - TransparentFX
