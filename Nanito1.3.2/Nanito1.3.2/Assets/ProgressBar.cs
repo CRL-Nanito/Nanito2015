@@ -15,6 +15,7 @@ public class ProgressBar : MonoBehaviour {
 	bool triangulo = false;
 
 	public Image fadeimage;
+	public Image finalimage;
 	public float fadespeed = 30f;
 	public Color fadecolor = new Color (0f, 0f, 0f, 1f); 
 
@@ -22,33 +23,29 @@ public class ProgressBar : MonoBehaviour {
 		slider.value = 100;
 	}
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.tag == "spotlight"){
+		if (other.gameObject.tag == "spotlight") {
 			refuel = true;
-		}
-		else if(other.gameObject.tag == "teleport 1"){
+		} else if (other.gameObject.tag == "teleport 1") {
 			triangulo = false;
 			circulo = true;
-			//fadeimage.color = fadecolor;
 			transform.position = new Vector3 (-264f, -65f, 574.2f);
-			transform.rotation = Quaternion.Euler(359.69f, 179.9999f, 0);
-			this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			//fadeimage.color = Color.Lerp (fadeimage.color, Color.clear, fadespeed * Time.deltaTime);
-			//fadeimage.color = Color.clear;
-			Debug.Log("fade back");
+			transform.rotation = Quaternion.Euler (359.69f, 179.9999f, 0);
+			this.gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			Debug.Log ("fade back");
 
 
-		}
-		else if(other.gameObject.tag == "teleport 2"){
+		} else if (other.gameObject.tag == "teleport 2") {
 			triangulo = true;
 			circulo = false;
-			//fadeimage.color = fadecolor;
 			transform.position = new Vector3 (-770.4f, -60f, 177.1f);
-			transform.rotation = Quaternion.Euler(359.69f, 181.4886f, 0);
-			this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;		
-			//fadeimage.color = Color.Lerp (fadeimage.color, Color.clear, fadespeed * Time.deltaTime);
-			//fadeimage.color = Color.clear;
-			Debug.Log("fade back");
-
+			transform.rotation = Quaternion.Euler (359.69f, 181.4886f, 0);
+			this.gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;		
+		
+		}
+		if (other.gameObject.tag == "finish") {
+			Color c = finalimage.color;
+			c.a = 255;
+			finalimage.color = c;
 		}
 
 	}
@@ -61,17 +58,12 @@ public class ProgressBar : MonoBehaviour {
 
 		}
 		else if(other.gameObject.tag == "teleport 2"){
-		
 			fadeimage.color = Color.Lerp (fadeimage.color, Color.clear, fadespeed * Time.deltaTime);
-			
-			
+
 		}
 	}
 	
 	void Update() {
-		//for this example, the bar display is linked to the current time,
-		//however you would set this value based on your desired display
-		//eg, the loading progress, the player's health, or whatever.
 		if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)){
 			slider.value = slider.value - 0.002f ;
 		}
@@ -81,11 +73,9 @@ public class ProgressBar : MonoBehaviour {
 
 		if (slider.value <= 0) {
 			if (circulo) {
-				//GetComponent<Renderer> ().enabled = false;
 				transform.position = new Vector3 (-264f, -65f, 574.2f);
 				transform.rotation = Quaternion.Euler(359.69f, 179.9999f, 0);
 				this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				//GetComponent<Renderer> ().enabled = true;
 			} else if (triangulo) {
 			
 				transform.position = new Vector3 (-770.4f, -60f, 177.1f);
