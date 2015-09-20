@@ -1,0 +1,23 @@
+print "Starting maya loading and fbx conversion \n";
+	
+if (`file -q -exists "/Users/bryanmitchell/Nanito2015/Nanito1.3.2/Nanito1.3.2/Assets/SampleScenes/Prefabs/circle maze.mb"`)
+{		
+	file -o "/Users/bryanmitchell/Nanito2015/Nanito1.3.2/Nanito1.3.2/Assets/SampleScenes/Prefabs/circle maze.mb";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "/Users/bryanmitchell/Nanito2015/Nanito1.3.2/Nanito1.3.2/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+
+system ("rm \"/Users/bryanmitchell/Nanito2015/Nanito1.3.2/Nanito1.3.2/Temp/CommandPipe\"");
+
+$donepipeKill = `fopen "/Users/bryanmitchell/Nanito2015/Nanito1.3.2/Nanito1.3.2/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
